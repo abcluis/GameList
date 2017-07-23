@@ -4,7 +4,6 @@
 
     @include('partials.errors')
 
-    <div class="container">
         <div class="row">
             <form action="{{ route('games.store') }}" method="post" role="form">
                 <legend>New Videogame</legend>
@@ -37,6 +36,5 @@
                 <button type="submit" class="btn btn-primary">Create</button>
             </form>
         </div>
-    </div>
 
 @endsection

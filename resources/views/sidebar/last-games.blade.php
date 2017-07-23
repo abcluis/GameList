@@ -9,6 +9,7 @@
             </div>
             <div class="col-md-7">
                 {{ $game->name }}
+                <p class="text-muted small">{{ $game->created_at->diffForHumans() }}</p>
             </div>
         </a>
 
