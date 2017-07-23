@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Comment;
-use App\Favorite;
 use App\Game;
 use App\Tag;
 use Illuminate\Http\Request;
@@ -11,28 +9,28 @@ use Illuminate\Support\Facades\Auth;
 
 class GameController extends Controller
 {
-    public function getIndex()
+    public function index()
     {
         $games = Game::get();
 
-        return view('home.index', ['games' => $games]);
+        return view('home.index', compact('games'));
     }
 
-    public function getGame($id)
+    public function show(Game $game)
     {
-        $game = Game::find($id);
+
         $game->increment('visit');
         $game->save();
-        return view('game.single', ['game' => $game]);
+        return view('game.show', compact('game'));
     }
 
-    public function getCreateGame()
+    public function create()
     {
         $tags = Tag::get();
-        return view('game.create', ['tags' => $tags]);
+        return view('game.create', compact('tags'));
     }
 
-    public function postCreateGame(Request $request)
+    public function store(Request $request)
     {
 
         $this->validate($request, [
@@ -40,6 +38,7 @@ class GameController extends Controller
             'year' => 'required | max:4',
             'description' => 'required | min:20'
         ]);
+
         $user = Auth::user();
         $game = new Game();
         $game->name = $request->input('name');
@@ -55,9 +54,8 @@ class GameController extends Controller
             ->with('info', 'Game have been created');
     }
 
-    public function deleteGame($id)
+    public function destroy(Game $game)
     {
-        $game = Game::find($id);
         $game->tags()->detach();
         $game->favorites()->delete();
         $game->delete();
@@ -65,48 +63,4 @@ class GameController extends Controller
         return redirect('/')->with('info', 'Se ha eliminado correctamene el registro');
     }
 
-    public function getFavoriteGame($id)
-    {
-        $favorite = new Favorite();
-        $favorite->user_id = Auth::id();
-        $favorite->game_id = $id;
-        $favorite->save();
-
-        return redirect()->back()->with('info', 'Add to favorites this game');
-    }
-
-    public function getNoFavoriteGame($id)
-    {
-        $favorite = Favorite::where([
-            ['user_id', '=', Auth::id()],
-            ['game_id', '=', $id]
-        ])->first();
-
-
-        $favorite->delete();
-        return redirect()->back()->with('info', 'This game is not favorite anymore');
-    }
-
-    public function getMyGames()
-    {
-
-        $user = Auth::user();
-        $favorites = $user->favorites;
-
-        return view('game.favorites',['favorites' => $favorites]);
-    }
-
-    public function postComment(Request $request){
-        $this->validate($request,[
-            'content' => 'required | min:10'
-        ]);
-
-        $comment = new Comment();
-        $comment->user_id = Auth::id();
-        $comment->game_id = $request->input('id');
-        $comment->content = $request->input('content');
-        $comment->save();
-
-        return redirect()->back();
-    }
 }

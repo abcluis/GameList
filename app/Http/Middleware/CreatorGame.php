@@ -20,7 +20,6 @@ class CreatorGame
         $user = Auth::user();
 
 
-
         $game = Game::find($request->id);
         if($game->user->id === Auth::id()){
             return $next($request);

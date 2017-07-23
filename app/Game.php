@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Game extends Model
 {
@@ -28,6 +29,11 @@ class Game extends Model
     public function comments()
     {
         return $this->hasMany('App\Comment','game_id');
+    }
+
+    public function addComment($content)
+    {
+        $this->comments()->create(['content' => $content,'user_id' => Auth::id()]);
     }
 
 }

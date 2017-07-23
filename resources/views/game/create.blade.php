@@ -6,7 +6,7 @@
 
     <div class="container">
         <div class="row">
-            <form action="{{ route('game.create') }}" method="post" role="form">
+            <form action="{{ route('games.store') }}" method="post" role="form">
                 <legend>New Videogame</legend>
 
                 <div class="form-group">

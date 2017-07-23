@@ -11,54 +11,85 @@
 |
 */
 
+/*
+ * ROUTES GAMES
+ */
+
+// INDEX
+
 Route::get('/', [
-    'uses' => 'GameController@getIndex',
+    'uses' => 'GameController@index',
     'as' => 'home.index'
 ]);
 
+// CREATE
 
-Route::get('game/create', [
-    'uses' => 'GameController@getCreateGame',
-    'as' => 'game.create',
+Route::get('games/create', [
+    'uses' => 'GameController@create',
+    'as' => 'games.create',
     'middleware' => 'auth'
 ]);
 
-Route::post('game/create', [
-    'uses' => 'GameController@postCreateGame',
-    'as' => 'game.create'
+
+// STORE
+
+Route::post('games', [
+    'uses' => 'GameController@store',
+    'as' => 'games.store'
 ]);
 
-Route::get('game/{id}', [
-    'uses' => 'GameController@getGame',
-    'as' => 'game.single'
+// SHOW
+
+Route::get('games/{game}', [
+    'uses' => 'GameController@show',
+    'as' => 'games.show'
 ]);
 
-Route::get('delete/game/{id}', [
-    'uses' => 'GameController@deleteGame',
-    'as' => 'game.delete',
+// DESTROY
+
+Route::delete('games/{game}', [
+    'uses' => 'GameController@destroy',
+    'as' => 'games.destroy',
     'middleware' => 'creator.game'
 ]);
 
-Route::get('add/favorite/{id}', [
-    'uses' => 'GameController@getFavoriteGame',
-    'as' => 'game.favorite',
+/*
+ * ROUTES FAVORITES
+ */
+
+// INDEX
+
+Route::get('favorites/',[
+    'uses' => 'FavoriteController@index',
+    'as' => 'favorites.index',
+    'middleware' => ['auth']
+]);
+
+// STORE
+
+Route::post('favorites/', [
+    'uses' => 'FavoriteController@store',
+    'as' => 'favorites.store',
     'middleware' => ['auth','favorite']
 ]);
 
-Route::get('mygames/',[
-   'uses' => 'GameController@getMyGames',
-    'as' => 'game.myfavorites',
-    'middleware' => ['auth']
-]);
-Route::get('delete/favorite/{id}', [
-    'uses' => 'GameController@getNoFavoriteGame',
-    'as' => 'game.nofavorite',
+// DESTROY
+
+Route::delete('favorites/{id}', [
+    'uses' => 'FavoriteController@destroy',
+    'as' => 'favorites.destroy',
     'middleware' => ['auth']
 ]);
 
-Route::post('game/newcomment',[
-    'uses' => 'GameController@postComment',
-    'as' => 'game.newcomment',
+/*
+ * ROUTE COMMENTS
+ */
+
+// STORE
+
+Route::post('games/{game}/comments',[
+    'uses' => 'CommentController@store',
+    'as' => 'comments.store',
     'middleware' => ['auth']
 ]);
 

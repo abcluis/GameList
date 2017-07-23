@@ -10,7 +10,7 @@
         @foreach($favorites as $favorite)
 
             <div class="list-group">
-                <a href="{{ route('game.single',['id' => $favorite->game->id]) }}" class="list-group-item">
+                <a href="{{ route('games.show',['id' => $favorite->game->id]) }}" class="list-group-item">
                     <h4 class="list-group-item-heading">{{ $favorite->game->name }}</h4>
                     <p class="list-group-item-text">{{ $favorite->game->description }}</p>
                 </a>

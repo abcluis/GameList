@@ -17,4 +17,5 @@ class Favorite extends Model
     {
         return $this->belongsTo('App\Game', 'game_id');
     }
+
 }

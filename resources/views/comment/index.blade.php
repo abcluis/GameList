@@ -14,7 +14,7 @@
             <div class="col-sm-11">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <strong>{{ $comment->user->name }}</strong> <span class="text-muted">commented 5 days ago</span>
+                        <strong>{{ $comment->user->name }}</strong> <span class="text-muted">commented {{ $comment->created_at->diffForHumans() }}</span>
                     </div>
                     <div class="panel-body">
                         {{ $comment->content }}

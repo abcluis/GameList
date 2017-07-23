@@ -59,7 +59,7 @@
             @foreach($games as $game)
 
                 <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                    <a class="thumbnail" href="{{ route('game.single', ['id' => $game->id]) }}">
+                    <a class="thumbnail" href="{{ route('games.show', ['id' => $game->id]) }}">
                         <div class="caption">
                             <h3>{{  $game->name }}</h3>
                             <p class="small">{{ $game->year }}</p>
@@ -75,7 +75,7 @@
             @endforeach
         </div>
         <h3>Existe algun juego que no encuentras?? Agregalo!!</h3>
-        <a class="btn btn-primary" href="{{ route('game.create') }}">Agregar</a>
+        <a class="btn btn-primary" href="{{ route('games.create') }}">Agregar</a>
     </div>
 
 

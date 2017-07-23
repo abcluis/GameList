@@ -21,7 +21,7 @@
                 <li class="{{ Route::currentRouteNamed('login') ? 'active' : '' }}"><a href="{{ route('login') }}">Login</a></li>
                 <li class="{{ Route::currentRouteNamed('register') ? 'active' : '' }}"><a href="{{ route('register') }}">Register</a></li>
             @else
-                <li><a href="{{ route('game.myfavorites') }}">My games</a></li>
+                <li><a href="{{ route('favorites.index') }}">My games</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }} <b
                                 class="caret"></b></a>
