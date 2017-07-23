@@ -16,6 +16,7 @@ class Game extends Model
             ->withTimestamps();
     }
 
+
     public function user()
     {
         return $this->belongsTo('App\User');

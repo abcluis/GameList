@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Game;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +14,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        view()->composer('*', function($view){
+            $view_name = $view->getName();
+            view()->share('view_name', $view_name);
+        });
+
+        view()->composer('sidebar.last-games', function($view){
+            $view->with('lastgames', Game::latest()->get());
+        });
     }
 
     /**

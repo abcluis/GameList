@@ -5,8 +5,6 @@
         <h1>My favorites games</h1>
     </div>
 
-    <div class="container">
-
         @foreach($favorites as $favorite)
 
             <div class="list-group">
@@ -17,6 +15,5 @@
             </div>
         @endforeach
 
-    </div>
 
 @endsection
